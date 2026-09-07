@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>PercStick Firmware Update</title>
+  <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+</head>
+<body>
+  <h1>PercStick Firmware Update</h1>
+  <p>1. Choose a firmware version. 2. Connect PercStick via USB. 3. Click Install.</p>
+
+  <label for="versionSelect">Firmware version:</label>
+  <select id="versionSelect">
+    <option value="firmware/v3.1/manifest.json">v3.1 (latest)</option>
+    <option value="firmware/v2.2/manifest.json">v2.2</option>
+    <option value="firmware/v1.0/manifest.json">v1.0</option>
+  </select>
+
+  <div id="buttonHolder"></div>
+
+  <script>
+    const select = document.getElementById('versionSelect');
+    const holder = document.getElementById('buttonHolder');
+
+    function renderButton() {
+      // Fresh element each time, not just an attribute change on the old
+      // one — the custom element reads `manifest` when it's connected to
+      // the DOM, so swapping the attribute on an already-connected
+      // element isn't guaranteed to re-trigger its setup.
+      holder.innerHTML = '';
+      const btn = document.createElement('esp-web-install-button');
+      btn.setAttribute('manifest', select.value);
+      holder.appendChild(btn);
+    }
+
+    select.addEventListener('change', renderButton);
+    renderButton(); // initial render for whatever's selected by default
+  </script>
+</body>
+</html>
