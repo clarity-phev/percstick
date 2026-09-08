@@ -4,6 +4,20 @@
   <meta charset="utf-8">
   <title>PercStick Firmware Update</title>
   <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+  <style>
+    #buttonHolder {
+      margin-top: 24px; /* was crowding the version pulldown right above it */
+    }
+    .erase-warning {
+      margin-top: 12px;
+      padding: 10px 14px;
+      border: 1px solid #e0b04a;
+      background: #fff8e6;
+      border-radius: 6px;
+      font-size: 0.95em;
+      max-width: 480px;
+    }
+  </style>
 </head>
 <body>
   <h1>PercStick Firmware Update</h1>
@@ -15,6 +29,12 @@
     <option value="firmware/v2.0/manifest.json">v2.2 (latest)</option>
     <option value="firmware/v1.0/manifest.json">v1.3</option>
   </select>
+
+  <p class="erase-warning">
+    ⚠️ <strong>"Erase device" wipes calibration data.</strong>
+    Leave it <strong>unchecked</strong> for a routine firmware update on a working unit.
+    Only check it for a brand-new, never-calibrated unit.
+  </p>
 
   <div id="buttonHolder"></div>
 
@@ -30,6 +50,16 @@
       holder.innerHTML = '';
       const btn = document.createElement('esp-web-install-button');
       btn.setAttribute('manifest', select.value);
+
+      // Custom activation button (replaces the library's default "Connect"
+      // label) via the documented `slot="activate"` override. Must be
+      // re-added here, not just once in static HTML, since this whole
+      // element is recreated on every version change.
+      const activateBtn = document.createElement('button');
+      activateBtn.setAttribute('slot', 'activate');
+      activateBtn.textContent = 'Proceed';
+      btn.appendChild(activateBtn);
+
       holder.appendChild(btn);
     }
 
