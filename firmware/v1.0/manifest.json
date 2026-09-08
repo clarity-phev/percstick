@@ -1,14 +1,14 @@
 {
   "name": "PercStick Firmware",
-  "version": "2.2",
+  "version": "1.0",
   "new_install_prompt_erase": true,
   "builds": [
     {
       "chipFamily": "ESP32-S3",
       "parts": [
-        { "path": "sketch_PercStick_v2.ino.bootloader.bin", "offset": 0 },
-        { "path": "sketch_PercStick_v2.ino.partitions.bin", "offset": 32768 },
-        { "path": "sketch_PercStick_v2.ino.bin", "offset": 65536 }
+        { "path": "sketch_PercStick_v1.ino.bootloader.bin", "offset": 0 },
+        { "path": "sketch_PercStick_v1.ino.partitions.bin", "offset": 32768 },
+        { "path": "sketch_PercStick_v1.ino.bin", "offset": 65536 }
       ]
     }
   ]
