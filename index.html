@@ -1,11 +1,7 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-
-  <h1>PercStick Firmware Update</h1>
-  <p class="subtitle">Chrome/Edge only — WebSerial isn't supported on other browsers</p>
- 
   <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
   <style>
     #buttonHolder {
@@ -29,15 +25,18 @@
   </style>
 </head>
 <body>
- 
+
+  <h1>PercStick Firmware Update</h1>
+  <p class="subtitle">Chrome/Edge only — WebSerial isn't supported on other browsers</p>
+
   <ol>
     <li>Choose a firmware version</li>
     <li>Connect PercStick via USB</li>
     <li>Click Proceed</li>
-  </ol> 
+  </ol>
 
   <label for="versionSelect">Firmware version:</label>
-  <select id="versionSelect">
+  <select id="versionSelect" autocomplete="off">
     <option value="firmware/v3.0/manifest.json">v3.0 (latest)</option>
     <option value="firmware/v2.0/manifest.json">v2.3</option>
     <option value="firmware/v1.0/manifest.json">v1.3</option>
