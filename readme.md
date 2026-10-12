@@ -1,4 +1,4 @@
-Updating firmware from Web Tool (Use Chrome, Edge, Firefox may work (may install plugin)
+Updating firmware from Web Tool (Use Chrome, Edge, Firefox may work (may install plugin))
 
 1. Unplug the battery cable from the microprocessor USB-C input
 2. Connect a cable from a USB port on your laptop to the USB-C on the microprocessor
