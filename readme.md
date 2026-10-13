@@ -7,6 +7,6 @@ Updating firmware from Web Tool (Use Chrome, Edge, Firefox may work (may install
 4. When done, unplug the USB cable and re-connect the battery
    The PercStick will immediately power on
 5. After it boots, connect to the PercStick as usual and verify the correct firmware version on the banner
-6. Press and hole the button on the battery until the display dims, then release to turn off the unit
+6. Press and hold the button on the battery until the display dims, then release to turn off the unit
 
 
