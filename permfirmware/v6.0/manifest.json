@@ -1,1 +1,15 @@
-
+{
+  "name": "Permeameter Firmware",
+  "version": "6.0",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        { "path": "sketch_Perm-o-Matic_v6.ino.bootloader.bin", "offset": 0 },
+        { "path": "sketch_Perm-o-Matic_v6.ino.partitions.bin", "offset": 32768 },
+        { "path": "sketch_Perm-o-Matic_v6.ino.bin", "offset": 65536 }
+      ]
+    }
+  ]
+}
