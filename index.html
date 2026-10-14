@@ -4,11 +4,22 @@
   <meta charset="utf-8">
   <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
   <style>
-    #buttonHolder {
-      margin-top: 24px; /* was crowding the version pulldown right above it */
+    .device-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px; /* horizontal separation between the two pulldowns */
+      margin-top: 16px;
+    }
+    .device {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .buttonHolder {
+      margin-top: 6px;
     }
     .erase-warning {
-      margin-top: 12px;
+      margin-top: 24px;
       padding: 10px 14px;
       border: 1px solid #e0b04a;
       background: #fff8e6;
@@ -35,18 +46,26 @@
     <li>Click Proceed</li>
   </ol>
 
-  <label for="stickSelect">PercStick version:</label>
-  <select id="stickSelect" autocomplete="off">
-    <option value="firmware/v4.0/manifest.json">v4.1 (latest)</option>
-    <option value="firmware/v3.0/manifest.json">v3.1</option>
-    <option value="firmware/v2.0/manifest.json">v2.3</option>
-    <option value="firmware/v1.0/manifest.json">v1.3</option>
-  </select>
-  
-  <label for="permSelect">Permeameter version:</label>
-  <select id="permSelect" autocomplete="off">
-    <option value="firmware/v4.0/manifest.json">v6.0 (latest)</option>
-  </select>
+  <div class="device-row">
+    <div class="device">
+      <label for="stickSelect">PercStick version:</label>
+      <select id="stickSelect" autocomplete="off">
+        <option value="firmware/v4.0/manifest.json">v4.1 (latest)</option>
+        <option value="firmware/v3.0/manifest.json">v3.1</option>
+        <option value="firmware/v2.0/manifest.json">v2.3</option>
+        <option value="firmware/v1.0/manifest.json">v1.3</option>
+      </select>
+      <div class="buttonHolder" id="stickButtonHolder"></div>
+    </div>
+
+    <div class="device">
+      <label for="permSelect">Permeameter version:</label>
+      <select id="permSelect" autocomplete="off">
+        <option value="firmware/v4.0/manifest.json">v6.0 (latest)</option>
+      </select>
+      <div class="buttonHolder" id="permButtonHolder"></div>
+    </div>
+  </div>
 
   <p class="erase-warning">
     ⚠️ <strong>"Erase device" wipes calibration data.</strong>
@@ -54,25 +73,14 @@
     Only check it for a brand-new, never-calibrated unit.
   </p>
 
-  <div id="buttonHolder"></div>
-
   <script>
-    const select = document.getElementById('stickSelect');
-    const holder = document.getElementById('buttonHolder');
-
-    function renderButton() {
-      // Fresh element each time, not just an attribute change on the old
-      // one — the custom element reads `manifest` when it's connected to
-      // the DOM, so swapping the attribute on an already-connected
-      // element isn't guaranteed to re-trigger its setup.
+    function renderButton(select, holder) {
+      // Fresh element each time — the custom element reads `manifest`
+      // when it's connected to the DOM.
       holder.innerHTML = '';
       const btn = document.createElement('esp-web-install-button');
       btn.setAttribute('manifest', select.value);
 
-      // Custom activation button (replaces the library's default "Connect"
-      // label) via the documented `slot="activate"` override. Must be
-      // re-added here, not just once in static HTML, since this whole
-      // element is recreated on every version change.
       const activateBtn = document.createElement('button');
       activateBtn.setAttribute('slot', 'activate');
       activateBtn.textContent = 'Proceed';
@@ -81,8 +89,15 @@
       holder.appendChild(btn);
     }
 
-    select.addEventListener('change', renderButton);
-    renderButton(); // initial render for whatever's selected by default
+    function wire(selectId, holderId) {
+      const select = document.getElementById(selectId);
+      const holder = document.getElementById(holderId);
+      select.addEventListener('change', () => renderButton(select, holder));
+      renderButton(select, holder);
+    }
+
+    wire('stickSelect', 'stickButtonHolder');
+    wire('permSelect', 'permButtonHolder');
   </script>
 </body>
 </html>
