@@ -2,7 +2,17 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+
+  <script type="module">
+    // Android Chrome has no native USB serial support, so give it a
+    // WebUSB-based Web Serial polyfill before ESP Web Tools loads.
+    if (/Android/i.test(navigator.userAgent) && 'usb' in navigator) {
+      const { serial } = await import('https://unpkg.com/web-serial-polyfill@1.0.15/dist/serial.js');
+      Object.defineProperty(navigator, 'serial', { value: serial, configurable: true });
+    }
+    await import('https://unpkg.com/esp-web-tools@10.4.0/dist/web/install-button.js?module');
+  </script>
+  
   <style>
     .device-row {
       display: flex;
